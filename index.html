@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <script>
+        let choices = ['Rock', 'Paper', 'Scissors']
+        let playerScore = 0;
+        let computerScore = 0;
+
+        game();
+
+        function getComputerChoice(){
+            let choiceIndex = Math.floor((Math.random() * 3));
+            return choices[choiceIndex];
+        }
+
+        function formatInput(playerSelection){
+            let firstLetter = playerSelection[0].toUpperCase();
+            let rest = playerSelection.substring(1);
+            return firstLetter.concat(rest);
+
+        }
+
+        function playRound(playerSelection, computerSelection){
+            if (playerSelection === computerSelection) {
+                console.log(`Tie. Both picked ${computerSelection}`);
+            }
+            else if (playerSelection === 'Rock' && computerSelection === 'Scissors' || playerSelection === 'Scissors' && computerSelection === 'Paper' || 
+            playerSelection === 'Paper' && computerSelection === 'Rock' ){
+                console.log(`You win! ${playerSelection} beats ${computerSelection}`);
+                playerScore++;
+            }
+            else if (playerSelection === 'Rock' && computerSelection === 'Paper' || playerSelection === 'Scissors' && computerSelection === 'Rock' || 
+            playerSelection === 'Paper' && computerSelection === 'Scissors'){
+                console.log(`You lose! ${computerSelection} beats ${playerSelection}`);
+                computerScore++;
+            }
+
+            console.log(`Your score: ${playerScore} and Computer Score: ${computerScore}`);   
+        }
+        
+        function game(){
+            while (playerScore < 5 && computerScore < 5) {
+                let playerSelection = formatInput(prompt("Choose rock paper or scissors"));
+                let computerSelection = getComputerChoice();
+                playRound(playerSelection,computerSelection);
+        }
+        }
+    </script>
+</body>
+</html>
