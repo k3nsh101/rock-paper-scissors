@@ -3,13 +3,15 @@ let playerScore = 0;
 let computerScore = 0;
 
 const buttons = document.querySelectorAll(".option-btn");
-const round_result = document.querySelector(".round-result");
-const total_result = document.querySelector(".total-result");
+const round_winner = document.querySelector(".round-winner");
+const round_win_method = document.querySelector(".round-win-method");
+const total_result_player = document.querySelector(".total-result-player");
+const total_result_computer = document.querySelector(".total-result-computer");
 const start_over = document.querySelector(".start-over");
 
 buttons.forEach(button => {
     button.addEventListener("click", (event) => {
-        let playerSelection = event.target.value;
+        let playerSelection = event.target.parentElement.value;
         let computerSelection = getComputerChoice();
 
         if (playerScore > 5 || computerScore > 5) {
@@ -23,8 +25,13 @@ start_over.addEventListener('click', ()=> {
     playerScore = 0;
     computerScore = 0;
     buttons.forEach(button => button.disabled = false);
-    round_result.textContent = '';
-    total_result.textContent = '';
+    round_winner.textContent = 'Pick your option';
+    round_win_method.textContent = 'First to score 5 points wins the game';
+    total_result_player.children[1].textContent = 'Player: 0';
+    total_result_computer.children[1].textContent = 'Computer: 0';
+    total_result_player.children[0].src = `img/question-mark.png`;
+    total_result_computer.children[0].src = `img/question-mark.png`;
+    buttons.forEach(button => button.classList.add("option-btn-hover"));
 })
 
 function getComputerChoice(){
@@ -34,27 +41,42 @@ function getComputerChoice(){
 
 function playRound(playerSelection, computerSelection){
     if (playerSelection === computerSelection) {
-        round_result.textContent = `Tie. Both picked ${computerSelection}`;
+        round_winner.textContent = `It's a tie!`;
+        round_win_method.textContent = `Both picked ${computerSelection}`;
+        total_result_player.children[1].textContent = `Player: ${playerScore}`;
+        total_result_computer.children[1].textContent = `Computer: ${computerScore}`;
+        total_result_player.children[0].src = `img/${playerSelection}.jpg`;
+        total_result_computer.children[0].src = `img/${computerSelection}.jpg`;
     }
     else if (playerSelection === 'Rock' && computerSelection === 'Scissors' || playerSelection === 'Scissors' && computerSelection === 'Paper' || 
     playerSelection === 'Paper' && computerSelection === 'Rock' ){
-        round_result.textContent = `You win! ${playerSelection} beats ${computerSelection}`;
         playerScore++;
+        round_winner.textContent = `You won!`;
+        round_win_method.textContent = `${playerSelection} beats ${computerSelection}`;
+        total_result_player.children[1].textContent = `Player: ${playerScore}`;
+        total_result_computer.children[1].textContent = `Computer: ${computerScore}`;
+        total_result_player.children[0].src = `img/${playerSelection}.jpg`;
+        total_result_computer.children[0].src = `img/${computerSelection}.jpg`;
     }
     else if (playerSelection === 'Rock' && computerSelection === 'Paper' || playerSelection === 'Scissors' && computerSelection === 'Rock' || 
     playerSelection === 'Paper' && computerSelection === 'Scissors'){
-        round_result.textContent = `You lose! ${computerSelection} beats ${playerSelection}`;
         computerScore++;
+        round_winner.textContent = `You lose!`;
+        round_win_method.textContent = `${playerSelection} is beaten by ${computerSelection}`;
+        total_result_player.children[1].textContent = `Player: ${playerScore}`;
+        total_result_computer.children[1].textContent = `Computer: ${computerScore}`;
+        total_result_player.children[0].src = `img/${playerSelection}.jpg`;
+        total_result_computer.children[0].src = `img/${computerSelection}.jpg`;        
     }
-
-    total_result.textContent = `Your total score: ${playerScore} and Computer total score: ${computerScore}`;
 
     if (playerScore === 5) {
         buttons.forEach(button => button.disabled = true);
+        buttons.forEach(button => button.classList.remove("option-btn-hover"));
         alert("Congratulation. You won!!");
     }
     else if (computerScore === 5){
         buttons.forEach(button => button.disabled = true);
+        buttons.forEach(button => button.classList.remove("option-btn-hover"));
         alert("Game over. You Lose!!");
     }
 }

@@ -4,18 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="scripts/scripts.js" defer></script>
+    <link href="css/styles.css" rel="stylesheet">
     <title>Rock Paper Scissors</title>
 </head>
 <body>
-    <div class="options">
-        <button class="option-btn" value="Rock">Rock</button>
-        <button class="option-btn" value="Paper">Paper</button>
-        <button class="option-btn" value="Scissors">Scissors</button>
+    <div class="header">
+        ROCK PAPER SCISSORS
     </div>
 
     <div class="results">
-        <p class="round-result"></p>
-        <p class="total-result"></p>
+        <div class="round-result">
+            <p class="round-winner">Pick your option</p>    
+            <p class="round-win-method">First to score 5 points wins the game</p>
+        </div>
+        <div class="total-result">
+            <div class="total-result-player">
+                <img src="img/question-mark.png">
+                <p>Player: 0</p>
+            </div>
+            <div class="total-result-computer">
+                <img src="img/question-mark.png">
+                <p>Computer: 0</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="options">
+        <div class="option-rock">
+            <button class="option-btn option-btn-hover" value="Rock">
+                <img src="img/Rock.jpg" alt="image of rock">
+            </button>
+            <p>Rock</p>
+        </div>
+        
+        <div class="option-paper">
+            <button class="option-btn option-btn-hover" value="Paper">
+                <img src="img/Paper.jpg" alt="image of paper">
+            </button>
+            <p>Paper</p>
+        </div>
+        
+        <div class="option-scissors">
+            <button class="option-btn option-btn-hover" value="Scissors">
+                <img src="img/Scissors.jpg" alt="image of scissors">
+            </button>
+            <p>Scissors</p> 
+        </div>
     </div>
 
     <button class="start-over">Start Over</button>
